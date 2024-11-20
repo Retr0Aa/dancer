@@ -11,17 +11,21 @@ namespace Dancer.UI
     public class Channels
     {
         public GroupBox rootBox;
-        public Panel samplesPanel;
+        public CustomPanel samplesPanel;
 
         public Button addSampleButton;
 
-        public Channels()
+        public int channelsLength;
+
+        public Channels(int channelsLength = 10)
         {
+            this.channelsLength = channelsLength;
+
             rootBox = new GroupBox();
             rootBox.Text = "Channels";
             rootBox.Dock = DockStyle.Fill;
-            
-            samplesPanel = new Panel();
+
+            samplesPanel = new CustomPanel();
             samplesPanel.Dock = DockStyle.Fill;
 
             addSampleButton = new Button();
@@ -35,9 +39,11 @@ namespace Dancer.UI
 
         private void AddSampleButton_Click(object sender, EventArgs e)
         {
-            MainApp.Instance.samples.Add(new Sample("", "Untitled", MainApp.Instance.samples.Count));
+            MainApp.Instance.samples.Add(new Sample("", "Untitled", MainApp.Instance.samples.Count + 1, channelsLength));
 
+            MainApp.Instance.SuspendLayout();
             MainApp.Instance.RefreshSamples();
+            MainApp.Instance.ResumeLayout();
         }
 
         public void RefreshSamples(List<Sample> samples)

@@ -15,8 +15,13 @@ namespace Dancer
     {
         static void Main()
         {
+            Application.SetCompatibleTextRenderingDefault(true);
+            Application.EnableVisualStyles();
+
             MainApp app = new MainApp();
             app.Run();
+
+            Application.Run(app);
         }
     }
 }

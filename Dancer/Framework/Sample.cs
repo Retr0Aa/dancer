@@ -14,11 +14,10 @@ namespace Dancer.Framework
 
         public bool[] loadedPoints;
 
-        public Sample(string filePath, string title, int id)
+        public Sample(string filePath, string title, int id, int length)
         {
-            loadedPoints = new bool[11] {
-            false, false, false, false, false, false, false, false, false, false, false
-        };
+            loadedPoints = new bool[length + 1];
+
             this.filePath = filePath;
             this.title = title;
             this.id = id;

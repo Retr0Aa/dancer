@@ -11,7 +11,7 @@ namespace Dancer.UI
 {
     public class SampleDisplay
     {
-        public Panel rootPanel;
+        public CustomPanel rootPanel;
 
         public Button sampleButton;
 
@@ -21,7 +21,7 @@ namespace Dancer.UI
         {
             m_Sample = sample;
 
-            rootPanel = new Panel();
+            rootPanel = new CustomPanel();
             rootPanel.Dock = DockStyle.Top;
             rootPanel.BackColor = Color.LightGray;
             rootPanel.AutoSize = true;
@@ -55,7 +55,9 @@ namespace Dancer.UI
                     MainApp.Instance.samples[m_Sample.id - 1].loadedPoints[int.Parse(((Control) sender).Name)] =
                         !MainApp.Instance.samples[m_Sample.id - 1].loadedPoints[int.Parse(((Control)sender).Name)];
 
+                    MainApp.Instance.SuspendLayout();
                     MainApp.Instance.RefreshSamples();
+                    MainApp.Instance.ResumeLayout();
                 };
 
                 rootPanel.Controls.Add(btn);
