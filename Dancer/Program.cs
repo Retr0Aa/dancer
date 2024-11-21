@@ -13,8 +13,12 @@ namespace Dancer
 {
     public class Program
     {
+        public static Retr0Log.Logger logger;
+
         static void Main()
         {
+            logger = new Retr0Log.Logger("APP", new Retr0Log.LogSettings(true, true, true));
+
             Application.SetCompatibleTextRenderingDefault(true);
             Application.EnableVisualStyles();
 

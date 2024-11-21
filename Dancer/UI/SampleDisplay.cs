@@ -1,4 +1,5 @@
 ﻿using Dancer.Framework;
+using Retr0Log;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -51,7 +52,7 @@ namespace Dancer.UI
 
                 btn.Click += (object sender, EventArgs e) =>
                 {
-                    Console.WriteLine(MainApp.Instance.patterns[MainApp.Instance.currentPattern].samples[m_Sample.id - 1].loadedPoints[int.Parse(((Control) sender).Name)]);
+                    Program.logger.Log(MainApp.Instance.patterns[MainApp.Instance.currentPattern].samples[m_Sample.id - 1].loadedPoints[int.Parse(((Control) sender).Name)].ToString(), LogLevel.Debug);
                     
                     MainApp.Instance.patterns[MainApp.Instance.currentPattern].samples[m_Sample.id - 1].loadedPoints[int.Parse(((Control) sender).Name)] =
                         !MainApp.Instance.patterns[MainApp.Instance.currentPattern].samples[m_Sample.id - 1].loadedPoints[int.Parse(((Control)sender).Name)];

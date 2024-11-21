@@ -3,6 +3,8 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dancer", "Dancer\Dancer.csproj", "{B21C97AD-9EBE-C183-8779-D5D773BA48D4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Retr0Log", "Retr0Log.csproj", "{D468449E-C035-9FA9-E94E-8D51D57AD437}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -13,6 +15,10 @@ Global
 		{B21C97AD-9EBE-C183-8779-D5D773BA48D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B21C97AD-9EBE-C183-8779-D5D773BA48D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B21C97AD-9EBE-C183-8779-D5D773BA48D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D468449E-C035-9FA9-E94E-8D51D57AD437}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D468449E-C035-9FA9-E94E-8D51D57AD437}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D468449E-C035-9FA9-E94E-8D51D57AD437}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D468449E-C035-9FA9-E94E-8D51D57AD437}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

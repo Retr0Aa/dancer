@@ -1,5 +1,6 @@
 ﻿using Dancer.UI;
 using NAudio.Wave;
+using Retr0Log;
 using System;
 using System.Collections.Generic;
 using System.Drawing;
@@ -116,7 +117,7 @@ namespace Dancer.Framework
                             outputDevice.Play();
                         }
 
-                        Console.WriteLine($"Playing at {i} index in sample.");
+                        Program.logger.Log($"Playing at {i} index in sample.", LogLevel.Debug);
 
                         // Wait for the specified delay without blocking other operations
                         await Task.Delay((int)Math.Round(mainTempo * 1000));
