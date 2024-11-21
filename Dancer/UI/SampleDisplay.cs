@@ -51,9 +51,10 @@ namespace Dancer.UI
 
                 btn.Click += (object sender, EventArgs e) =>
                 {
-                    Console.WriteLine(MainApp.Instance.samples[m_Sample.id - 1].loadedPoints[int.Parse(((Control) sender).Name)]);
-                    MainApp.Instance.samples[m_Sample.id - 1].loadedPoints[int.Parse(((Control) sender).Name)] =
-                        !MainApp.Instance.samples[m_Sample.id - 1].loadedPoints[int.Parse(((Control)sender).Name)];
+                    Console.WriteLine(MainApp.Instance.patterns[MainApp.Instance.currentPattern].samples[m_Sample.id - 1].loadedPoints[int.Parse(((Control) sender).Name)]);
+                    
+                    MainApp.Instance.patterns[MainApp.Instance.currentPattern].samples[m_Sample.id - 1].loadedPoints[int.Parse(((Control) sender).Name)] =
+                        !MainApp.Instance.patterns[MainApp.Instance.currentPattern].samples[m_Sample.id - 1].loadedPoints[int.Parse(((Control)sender).Name)];
 
                     MainApp.Instance.SuspendLayout();
                     MainApp.Instance.RefreshSamples();

@@ -18,6 +18,11 @@ namespace Dancer.Framework
         {
             loadedPoints = new bool[length + 1];
 
+            for (int i = 0; i < loadedPoints.Length; i++)
+            {
+                loadedPoints[i] = false;
+            }
+
             this.filePath = filePath;
             this.title = title;
             this.id = id;

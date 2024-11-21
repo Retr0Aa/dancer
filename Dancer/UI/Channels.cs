@@ -15,12 +15,8 @@ namespace Dancer.UI
 
         public Button addSampleButton;
 
-        public int channelsLength;
-
-        public Channels(int channelsLength = 10)
+        public Channels()
         {
-            this.channelsLength = channelsLength;
-
             rootBox = new GroupBox();
             rootBox.Text = "Channels";
             rootBox.Dock = DockStyle.Fill;
@@ -39,7 +35,7 @@ namespace Dancer.UI
 
         private void AddSampleButton_Click(object sender, EventArgs e)
         {
-            MainApp.Instance.samples.Add(new Sample("", "Untitled", MainApp.Instance.samples.Count + 1, channelsLength));
+            MainApp.Instance.patterns[MainApp.Instance.currentPattern].samples.Add(new Sample("", "Untitled", MainApp.Instance.patterns[MainApp.Instance.currentPattern].samples.Count + 1, MainApp.Instance.channelsLength));
 
             MainApp.Instance.SuspendLayout();
             MainApp.Instance.RefreshSamples();

@@ -86,8 +86,8 @@ namespace Dancer.UI
 
         private void SaveButton_Click(object sender, EventArgs e)
         {
-            MainApp.Instance.samples.Find(s => s.id == m_Sample.id).title = nameTextBox.Text;
-            MainApp.Instance.samples.Find(s => s.id == m_Sample.id).filePath = sampleTextBox.Text;
+            MainApp.Instance.patterns[MainApp.Instance.currentPattern].samples.Find(s => s.id == m_Sample.id).title = nameTextBox.Text;
+            MainApp.Instance.patterns[MainApp.Instance.currentPattern].samples.Find(s => s.id == m_Sample.id).filePath = sampleTextBox.Text;
 
             MainApp.Instance.RefreshSamples();
 

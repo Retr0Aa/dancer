@@ -17,34 +17,49 @@ namespace Dancer.Framework
         ToolStrip toolStrip;
         ToolStripButton playStripButton;
 
-        public List<Sample> samples;
-
         public static MainApp Instance { get; set; }
 
         public Channels channels;
-        public bool shouldStop;
+        public Patterns patternsUI;
+        public List<Pattern> patterns;
+        public bool shouldStop = true;
 
         public float mainTempo;
+        public int channelsLength;
+
+        public int currentPattern;
 
         public MainApp()
         {
             Instance = this;
         }
 
-        public void Run()
+        public List<Sample> CreateDefaultSamplesPack()
         {
-            samples = new List<Sample>() {
+            return new List<Sample>()
+            {
                 new Sample("C:\\Users\\retr0\\Documents\\KICK_TEST.wav", "Kick", 1, 15),
                 new Sample("C:\\Users\\retr0\\Documents\\HIHAT_TEST.wav", "HiHat", 2, 15),
                 new Sample("C:\\Users\\retr0\\Documents\\SNARE_TEST.wav", "Snare", 3, 15)
             };
-            mainTempo = 0.1f;
+        }
 
-            this.Text = "Retr0A Dancer 0.1 Early Version";
-            this.Size = new Size(1080, 720);
-            this.DoubleBuffered = true;
-            this.SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
-            this.UpdateStyles();
+        public void Run()
+        {
+            mainTempo = 0.1f;
+            channelsLength = 15;
+            currentPattern = 0;
+
+            patterns = new List<Pattern>()
+            {
+                new Pattern("My Pattern #1", CreateDefaultSamplesPack())
+            };
+
+            Text = "Retr0A Dancer 0.1 Early Version";
+            Size = new Size(1280, 720);
+            DoubleBuffered = true;
+            SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
+            UpdateStyles();
 
             playStripButton = new ToolStripButton();
             playStripButton.Text = "Play";
@@ -67,18 +82,22 @@ namespace Dancer.Framework
             toolStrip = new ToolStrip();
             toolStrip.Items.Add(playStripButton);
 
-            channels = new Channels(15);
-            channels.RefreshSamples(samples);
+            channels = new Channels();
+            channels.RefreshSamples(patterns[currentPattern].samples);
 
-            this.Controls.Add(channels.rootBox);
-            this.Controls.Add(toolStrip);
+            patternsUI = new Patterns();
+            patternsUI.RefreshPatterns(patterns);
+
+            Controls.Add(channels.rootBox);
+            Controls.Add(patternsUI.rootBox);
+            Controls.Add(toolStrip);
         }
 
         public async Task StartPlayingAsync()
         {
             var playTasks = new List<Task>();
 
-            foreach (var sample in samples)
+            foreach (var sample in patterns[currentPattern].samples)
             {
                 playTasks.Add(Task.Run(async () =>
                 {
@@ -114,7 +133,12 @@ namespace Dancer.Framework
 
         public void RefreshSamples()
         {
-            channels.RefreshSamples(samples);
+            channels.RefreshSamples(patterns[currentPattern].samples);
+        }
+
+        public void RefreshPatterns()
+        {
+            patternsUI.RefreshPatterns(patterns);
         }
     }
 }
