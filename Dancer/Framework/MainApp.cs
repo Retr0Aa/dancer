@@ -30,6 +30,8 @@ namespace Dancer.Framework
 
         public int currentPattern;
 
+        public int defaultLength = 15;
+
         public MainApp()
         {
             Instance = this;
@@ -39,9 +41,9 @@ namespace Dancer.Framework
         {
             return new List<Sample>()
             {
-                new Sample("C:\\Users\\retr0\\Documents\\KICK_TEST.wav", "Kick", 1, 15),
-                new Sample("C:\\Users\\retr0\\Documents\\HIHAT_TEST.wav", "HiHat", 2, 15),
-                new Sample("C:\\Users\\retr0\\Documents\\SNARE_TEST.wav", "Snare", 3, 15)
+                new Sample("C:\\Users\\retr0\\Documents\\KICK_TEST.wav", "Kick", 1, defaultLength),
+                new Sample("C:\\Users\\retr0\\Documents\\HIHAT_TEST.wav", "HiHat", 2, defaultLength),
+                new Sample("C:\\Users\\retr0\\Documents\\SNARE_TEST.wav", "Snare", 3, defaultLength)
             };
         }
 
@@ -59,6 +61,7 @@ namespace Dancer.Framework
             Text = "Retr0A Dancer 0.1 Early Version";
             Size = new Size(1280, 720);
             DoubleBuffered = true;
+            KeyPreview = true;
             SetStyle(ControlStyles.DoubleBuffer | ControlStyles.UserPaint | ControlStyles.AllPaintingInWmPaint, true);
             UpdateStyles();
 
@@ -77,6 +80,25 @@ namespace Dancer.Framework
                 else
                 {
                     playStripButton.Text = "Play";
+                    channels.BlackoutMarkers();
+                }
+            };
+
+            KeyPress += async (object sender, KeyPressEventArgs args) =>
+            {
+                if (args.KeyChar == (char)32)
+                shouldStop = !shouldStop;
+
+                if (!shouldStop)
+                {
+                    playStripButton.Text = "Stop Playing";
+
+                    await StartPlayingAsync();
+                }
+                else
+                {
+                    playStripButton.Text = "Play";
+                    channels.BlackoutMarkers();
                 }
             };
 
@@ -117,7 +139,7 @@ namespace Dancer.Framework
                             outputDevice.Play();
                         }
 
-                        Program.logger.Log($"Playing at {i} index in sample.", LogLevel.Debug);
+                        channels.RefreshMarkers(i);
 
                         // Wait for the specified delay without blocking other operations
                         await Task.Delay((int)Math.Round(mainTempo * 1000));

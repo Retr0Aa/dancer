@@ -14,7 +14,7 @@ namespace Dancer.UI
     {
         public CustomPanel rootPanel;
 
-        public Button sampleButton;
+        public NonSelectableButton sampleButton;
 
         private Sample m_Sample;
 
@@ -27,13 +27,13 @@ namespace Dancer.UI
             rootPanel.BackColor = Color.LightGray;
             rootPanel.AutoSize = true;
 
-            sampleButton = new Button();
+            sampleButton = new NonSelectableButton();
             sampleButton.Text = sample.title;
             sampleButton.Click += SampleButton_Click;
 
             for (int i = 0; i < sample.loadedPoints.Length; i++)
             {
-                Button btn = new Button();
+                NonSelectableButton btn = new NonSelectableButton();
                 btn.Text = i.ToString();
                 btn.Dock = DockStyle.Right;
                 btn.Width = 50;
@@ -57,9 +57,16 @@ namespace Dancer.UI
                     MainApp.Instance.patterns[MainApp.Instance.currentPattern].samples[m_Sample.id - 1].loadedPoints[int.Parse(((Control) sender).Name)] =
                         !MainApp.Instance.patterns[MainApp.Instance.currentPattern].samples[m_Sample.id - 1].loadedPoints[int.Parse(((Control)sender).Name)];
 
-                    MainApp.Instance.SuspendLayout();
-                    MainApp.Instance.RefreshSamples();
-                    MainApp.Instance.ResumeLayout();
+                    if (MainApp.Instance.patterns[MainApp.Instance.currentPattern].samples[m_Sample.id - 1].loadedPoints[int.Parse(((Control)sender).Name)])
+                    {
+                        btn.BackColor = Color.Green;
+                        btn.ForeColor = Color.White;
+                    }
+                    else
+                    {
+                        btn.BackColor = Color.Black;
+                        btn.ForeColor = Color.White;
+                    }
                 };
 
                 rootPanel.Controls.Add(btn);

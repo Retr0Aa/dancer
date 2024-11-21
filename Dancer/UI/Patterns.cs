@@ -13,7 +13,7 @@ namespace Dancer.UI
         public GroupBox rootBox;
         public ListBox patternsPanel;
 
-        public Button addPatternButton;
+        public NonSelectableButton addPatternButton;
 
         public Patterns()
         {
@@ -25,7 +25,7 @@ namespace Dancer.UI
             patternsPanel.Dock = DockStyle.Fill;
             patternsPanel.SelectedIndexChanged += PatternsPanel_SelectedIndexChanged;
 
-            addPatternButton = new Button();
+            addPatternButton = new NonSelectableButton();
             addPatternButton.Dock = DockStyle.Bottom;
             addPatternButton.Text = "Add Pattern";
             addPatternButton.Click += AddPatternButton_Click;

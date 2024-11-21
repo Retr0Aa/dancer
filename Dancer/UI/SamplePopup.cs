@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Media;
 using System.Text;
@@ -13,7 +14,7 @@ namespace Dancer.UI
     public class SamplePopup
     {
         public Form form;
-        
+
         public Label nameLabel;
         public TextBox nameTextBox;
 
@@ -80,8 +81,20 @@ namespace Dancer.UI
 
         private void PreviewButton_Click(object sender, EventArgs e)
         {
-            SoundPlayer simpleSound = new SoundPlayer(sampleTextBox.Text);
-            simpleSound.Play();
+            if (sampleTextBox.Text != string.Empty)
+                try
+                {
+                    SoundPlayer simpleSound = new SoundPlayer(sampleTextBox.Text);
+                    simpleSound.Play();
+                }
+                catch (IOException ex)
+                {
+                    return;
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Error: {ex.Message}", "Error Occured!", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
         }
 
         private void SaveButton_Click(object sender, EventArgs e)

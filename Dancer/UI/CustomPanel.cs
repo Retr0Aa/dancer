@@ -15,4 +15,11 @@ namespace Dancer.UI
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
         }
     }
+    public class NonSelectableButton : Button
+    {
+        public NonSelectableButton()
+        {
+            SetStyle(ControlStyles.Selectable, false);
+        }
+    }
 }

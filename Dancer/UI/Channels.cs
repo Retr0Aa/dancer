@@ -1,6 +1,7 @@
 ﻿using Dancer.Framework;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -11,9 +12,10 @@ namespace Dancer.UI
     public class Channels
     {
         public GroupBox rootBox;
+        public CustomPanel markerPanel;
         public CustomPanel samplesPanel;
 
-        public Button addSampleButton;
+        public NonSelectableButton addSampleButton;
 
         public Channels()
         {
@@ -21,16 +23,35 @@ namespace Dancer.UI
             rootBox.Text = "Channels";
             rootBox.Dock = DockStyle.Fill;
 
+            markerPanel = new CustomPanel();
+            markerPanel.Dock = DockStyle.Top;
+            markerPanel.BackColor = Color.DarkGray;
+            markerPanel.Height = 10;
+            //markerPanel.AutoSize = true;
+
             samplesPanel = new CustomPanel();
             samplesPanel.Dock = DockStyle.Fill;
 
-            addSampleButton = new Button();
+            addSampleButton = new NonSelectableButton();
             addSampleButton.Dock = DockStyle.Bottom;
             addSampleButton.Text = "Add Sample";
             addSampleButton.Click += AddSampleButton_Click;
 
-            rootBox.Controls.Add(addSampleButton);
+            for (int i = 0; i <= MainApp.Instance.defaultLength; i++)
+            {
+                NonSelectableButton markerButton = new NonSelectableButton();
+                markerButton.FlatStyle = FlatStyle.Flat;
+                markerButton.Name = "marker_" + i;
+                markerButton.Dock = DockStyle.Right;
+                markerButton.Width = 50;
+                markerButton.Enabled = false;
+                markerButton.BackColor = Color.Black;
+                markerPanel.Controls.Add(markerButton);
+            }
+
             rootBox.Controls.Add(samplesPanel);
+            rootBox.Controls.Add(markerPanel);
+            rootBox.Controls.Add(addSampleButton);
         }
 
         private void AddSampleButton_Click(object sender, EventArgs e)
@@ -50,6 +71,22 @@ namespace Dancer.UI
             {
                 SampleDisplay sampleDisplay = new SampleDisplay(sample);
                 samplesPanel.Controls.Add(sampleDisplay.rootPanel);
+            }
+        }
+
+        public void RefreshMarkers(int currentIndexPlaying)
+        {
+            BlackoutMarkers();
+
+            markerPanel.Controls[currentIndexPlaying == 0 ? MainApp.Instance.defaultLength : currentIndexPlaying - 1].BackColor = Color.Black;
+            markerPanel.Controls[currentIndexPlaying].BackColor = Color.Red;
+        }
+
+        public void BlackoutMarkers()
+        {
+            for (int i = 0; i < markerPanel.Controls.Count; i++)
+            {
+                markerPanel.Controls[i].BackColor = Color.Black;
             }
         }
     }
